@@ -1,0 +1,70 @@
+/* ============================================================
+   Phones and touch screens. Loaded last so it overrides every style.
+   ============================================================ */
+
+/* ---------- safe areas: Android draws edge-to-edge, Capacitor injects --safe-area-inset-* ---------- */
+:root {
+  --sa-top: var(--safe-area-inset-top, 0px);
+  --sa-right: var(--safe-area-inset-right, 0px);
+  --sa-bottom: var(--safe-area-inset-bottom, 0px);
+  --sa-left: var(--safe-area-inset-left, 0px);
+}
+.shell {
+  padding: 0 var(--sa-right) var(--sa-bottom) var(--sa-left);
+  background: var(--md-app-bar);
+}
+/* the app bar grows under the status bar and keeps its own height below it */
+.app-bar { box-sizing: content-box; padding-top: var(--sa-top); }
+.snackbar { margin-bottom: var(--sa-bottom); }
+
+/* ---------- touch: no hover, fingers need bigger targets ---------- */
+@media (hover: none) {
+  .pnode .toggle { opacity: 1; }
+  .toggle { min-width: 30px; height: 30px; border-radius: 15px; }
+  .edge-hit { stroke-width: 26; }
+  .tooltip { display: none; }
+  .state:hover::before { opacity: 0; }
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 720px) {
+  .desktop-only,
+  .app-bar .brand,
+  .app-bar .spacer { display: none; }
+  .app-bar { gap: 0; padding-left: 8px; padding-right: 4px; }
+  .search { flex: 1; width: auto; min-width: 0; margin-right: 4px; }
+  :root:not([data-md='95']) .search { height: 44px; }
+
+  /* side sheets become full-screen pages over the tree */
+  .sheet,
+  .sheet.left {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    z-index: 30;
+    border: none;
+    box-shadow: none;
+  }
+  .sheet-body { padding-left: 16px; padding-right: 16px; }
+
+  .scrim { padding: calc(12px + var(--sa-top)) 12px calc(12px + var(--sa-bottom)); }
+  .dialog,
+  .dialog.wide { width: 100%; max-height: 100%; }
+  .dialog-head { padding: 20px 20px 12px; }
+  .dialog-body { padding: 0 20px 8px; }
+  .dialog-actions { padding: 12px 20px 20px; }
+
+  .design-preview { grid-template-columns: 1fr; }
+  .segmented { flex-wrap: wrap; }
+  .segmented button { flex: 1 1 40%; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .corner-pick { width: 180px; }
+
+  .legend { max-width: calc(100vw - 32px); max-height: 35%; }
+  .corner { gap: 8px; }
+  .corner.tl, .corner.tr { top: 12px; }
+  .corner.bl, .corner.br { bottom: 12px; }
+  .corner.tl, .corner.bl { left: 12px; }
+  .corner.tr, .corner.br { right: 12px; }
+  .snackbar { min-width: 0; width: calc(100% - 24px); }
+}

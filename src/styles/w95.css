@@ -1,0 +1,390 @@
+/* ============================================================
+   Windows 95 style — based on themesberg/windows-95-ui-kit (MIT):
+   its font, the #c0c0c0 face, white/grey 3D bevels, navy title bars
+   and the teal desktop. The kit itself is global Bootstrap 4, so its
+   look is re-applied here onto the app's own components.
+   ============================================================ */
+@font-face {
+  font-family: 'Windows 95';
+  src: url('../assets/w95/w-95-sans-serif.woff2') format('woff2'), url('../assets/w95/w-95-sans-serif.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root[data-md='95'] {
+  --shape-xs: 0;
+  --shape-s: 0;
+  --shape-m: 0;
+  --shape-l: 0;
+  --shape-xl: 0;
+  --shape-full: 0;
+  --shape-btn: 0;
+  --shape-field: 0;
+  --elev-1: none;
+  --elev-2: none;
+  --elev-3: none;
+  --elev-4: none;
+  --btn-case: none;
+  --btn-spacing: 0;
+  --btn-weight: 400;
+  --ease: steps(1);
+  --raised: inset -1px -1px var(--md-w95-dark), inset 1px 1px var(--md-w95-light), inset -2px -2px var(--md-w95-shadow),
+    inset 2px 2px var(--md-w95-hilight);
+  --pressed: inset -1px -1px var(--md-w95-light), inset 1px 1px var(--md-w95-dark), inset -2px -2px var(--md-w95-hilight),
+    inset 2px 2px var(--md-w95-shadow);
+  --sunken: inset -1px -1px var(--md-w95-light), inset 1px 1px var(--md-w95-shadow), inset -2px -2px var(--md-w95-hilight),
+    inset 2px 2px var(--md-w95-dark);
+  --thin-raised: inset -1px -1px var(--md-w95-shadow), inset 1px 1px var(--md-w95-light);
+  /* Latin glyphs from the kit's pixel font, Cyrillic falls back to the Windows system sans */
+  font-family: 'Windows 95', 'Microsoft Sans Serif', Tahoma, sans-serif;
+  font-size: 13px;
+}
+:root[data-md='95'] body { font-family: inherit; }
+:root[data-md='95'] * { transition: none !important; animation-duration: 0s !important; }
+:root[data-md='95'] .ripple { display: none; }
+:root[data-md='95'] .state::before { display: none; }
+:root[data-md='95'] .headline-s { font-size: 18px; line-height: 24px; font-weight: 700; }
+:root[data-md='95'] .title-l { font-size: 14px; font-weight: 700; }
+:root[data-md='95'] .title-m,
+:root[data-md='95'] .title-s { font-weight: 700; }
+:root[data-md='95'] .section-label { color: var(--md-on-surface); font-weight: 700; font-size: 13px; }
+
+/* ---------- scrollbars ---------- */
+:root[data-md='95'] ::-webkit-scrollbar { width: 16px; height: 16px; }
+:root[data-md='95'] ::-webkit-scrollbar-track {
+  background-color: var(--md-w95-hilight);
+  background-image: repeating-conic-gradient(var(--md-w95-face) 0 25%, var(--md-w95-light) 0 50%);
+  background-size: 2px 2px;
+}
+:root[data-md='95'] ::-webkit-scrollbar-thumb {
+  background: var(--md-w95-face);
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--raised);
+}
+:root[data-md='95'] ::-webkit-scrollbar-corner { background: var(--md-w95-face); }
+
+/* ---------- buttons ---------- */
+:root[data-md='95'] .btn {
+  height: 28px;
+  min-width: 75px;
+  padding: 0 12px;
+  background: var(--md-w95-face);
+  color: var(--md-on-surface);
+  box-shadow: var(--raised);
+  border: none;
+}
+:root[data-md='95'] .btn.filled {
+  /* the "default" button: extra black frame */
+  outline: 1px solid var(--md-w95-dark);
+  outline-offset: -1px;
+  background: var(--md-w95-face);
+  color: var(--md-on-surface);
+  font-weight: 700;
+}
+:root[data-md='95'] .btn.filled:hover,
+:root[data-md='95'] .btn:hover { box-shadow: var(--raised); }
+:root[data-md='95'] .btn.outlined,
+:root[data-md='95'] .btn.tonal,
+:root[data-md='95'] .btn.text { border: none; color: var(--md-on-surface); background: var(--md-w95-face); }
+:root[data-md='95'] .btn.danger,
+:root[data-md='95'] .btn.filled.danger { color: var(--md-error); background: var(--md-w95-face); }
+:root[data-md='95'] .btn:active,
+:root[data-md='95'] .icon-btn:active,
+:root[data-md='95'] .fab:active,
+:root[data-md='95'] .segmented button:active {
+  box-shadow: var(--pressed);
+  padding-top: 2px;
+  padding-left: 2px;
+}
+:root[data-md='95'] .btn:focus-visible,
+:root[data-md='95'] .icon-btn:focus-visible { outline: 1px dotted var(--md-on-surface); outline-offset: -5px; }
+:root[data-md='95'] .btn .material-symbols-outlined { font-size: 16px; margin-left: -4px; }
+
+:root[data-md='95'] .icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  background: var(--md-w95-face);
+  color: var(--md-on-surface);
+  box-shadow: var(--raised);
+}
+:root[data-md='95'] .icon-btn .material-symbols-outlined { font-size: 20px; }
+:root[data-md='95'] .icon-btn.small { width: 24px; height: 22px; }
+:root[data-md='95'] .icon-btn.small .material-symbols-outlined { font-size: 16px; }
+:root[data-md='95'] .icon-btn.active { background: var(--md-w95-hilight); box-shadow: var(--pressed); color: var(--md-on-surface); }
+:root[data-md='95'] .icon-btn:disabled { opacity: 1; color: var(--md-w95-shadow); text-shadow: 1px 1px var(--md-w95-light); }
+
+:root[data-md='95'] .fab {
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  background: var(--md-w95-face);
+  color: var(--md-on-surface);
+  box-shadow: var(--raised), 2px 2px 0 rgb(0 0 0 / 0.35);
+}
+:root[data-md='95'] .fab.secondary { background: var(--md-w95-face); color: var(--md-on-surface); }
+:root[data-md='95'] .fab:hover { box-shadow: var(--raised), 2px 2px 0 rgb(0 0 0 / 0.35); }
+
+/* ---------- app bar = window title bar ---------- */
+:root[data-md='95'] .app-bar {
+  height: 40px;
+  gap: 2px;
+  padding: 0 4px 0 8px;
+  background: var(--md-app-bar);
+  color: var(--md-on-app-bar);
+  box-shadow: inset 0 -2px var(--md-w95-face), inset 0 -3px var(--md-w95-shadow);
+}
+:root[data-md='95'] .app-bar .icon-btn { color: var(--md-on-surface); width: 28px; height: 24px; }
+:root[data-md='95'] .app-bar .icon-btn .material-symbols-outlined { font-size: 18px; }
+:root[data-md='95'] .app-bar .icon-btn:disabled { color: var(--md-w95-shadow); }
+:root[data-md='95'] .app-bar .brand-title { font-size: 14px; font-weight: 700; color: inherit; }
+:root[data-md='95'] .app-bar .brand-title:hover,
+:root[data-md='95'] .app-bar .brand-title:focus { background: rgb(255 255 255 / 0.12); }
+:root[data-md='95'] .search {
+  height: 26px;
+  border-radius: 0;
+  background: var(--md-w95-window);
+  color: var(--md-on-surface);
+  box-shadow: var(--sunken);
+  padding: 0 4px 0 6px;
+}
+:root[data-md='95'] .search .material-symbols-outlined { font-size: 18px; }
+:root[data-md='95'] .search .icon-btn { width: 20px; height: 18px; }
+
+/* ---------- windows: dialogs, sheets, menus ---------- */
+:root[data-md='95'] .scrim { background: transparent; }
+:root[data-md='95'] .dialog {
+  background: var(--md-w95-face);
+  border-radius: 0;
+  box-shadow: var(--raised), 3px 3px 0 rgb(0 0 0 / 0.3);
+  padding: 3px;
+}
+:root[data-md='95'] .dialog-head {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  padding: 3px 6px;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+:root[data-md='95'] .dialog-head .headline-s { font-size: 13px; line-height: 18px; font-weight: 700; }
+:root[data-md='95'] .dialog-head .material-symbols-outlined { color: inherit !important; font-size: 16px; }
+:root[data-md='95'] .dialog-body { padding: 0 12px 4px; gap: 12px; }
+:root[data-md='95'] .dialog-actions { padding: 12px; gap: 6px; }
+
+:root[data-md='95'] .sheet {
+  background: var(--md-w95-face);
+  border: none;
+  box-shadow: var(--raised);
+  padding: 3px;
+}
+:root[data-md='95'] .sheet-head {
+  min-height: 0;
+  padding: 3px 3px 3px 6px;
+  gap: 2px;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+}
+:root[data-md='95'] .sheet-head .title-l { font-size: 13px; }
+:root[data-md='95'] .sheet-head .icon-btn { width: 22px; height: 20px; }
+:root[data-md='95'] .sheet-head .icon-btn .material-symbols-outlined { font-size: 15px; }
+:root[data-md='95'] .sheet-head .btn { height: 22px; min-width: 60px; }
+:root[data-md='95'] .sheet-body { padding: 10px 10px 16px; }
+
+:root[data-md='95'] .menu {
+  background: var(--md-w95-face);
+  border-radius: 0;
+  box-shadow: var(--raised), 2px 2px 0 rgb(0 0 0 / 0.3);
+  padding: 3px;
+}
+:root[data-md='95'] .menu-item { min-height: 24px; padding: 0 20px 0 8px; gap: 8px; }
+:root[data-md='95'] .menu-item .material-symbols-outlined { font-size: 16px; color: inherit; }
+:root[data-md='95'] .menu-item:hover { background: var(--md-primary); color: var(--md-on-primary); }
+:root[data-md='95'] .menu-item:hover .trailing { color: inherit; }
+:root[data-md='95'] .menu-divider { height: 0; margin: 3px 2px; border-top: 1px solid var(--md-w95-shadow); border-bottom: 1px solid var(--md-w95-light); background: none; }
+:root[data-md='95'] .menu-label { color: var(--md-w95-shadow); font-weight: 700; }
+
+:root[data-md='95'] .snackbar,
+:root[data-md='95'] .tooltip {
+  background: #ffffe1;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 0;
+  box-shadow: none;
+}
+:root[data-md='95'] .snackbar { bottom: 12px; padding: 8px 12px; }
+
+/* ---------- fields ---------- */
+:root[data-md='95'] .field label { color: var(--md-on-surface); margin: 0 0 3px 0; font-size: 13px; }
+:root[data-md='95'] .field:focus-within label { color: var(--md-on-surface); }
+:root[data-md='95'] .field input,
+:root[data-md='95'] .field textarea,
+:root[data-md='95'] .field select,
+:root[data-md='95'] .mini-select {
+  min-height: 26px;
+  padding: 4px 6px;
+  border: none;
+  border-radius: 0;
+  background: var(--md-w95-window);
+  color: var(--md-on-surface);
+  box-shadow: var(--sunken);
+}
+:root[data-md='95'] .field textarea { min-height: 80px; }
+:root[data-md='95'] .field input:focus,
+:root[data-md='95'] .field textarea:focus,
+:root[data-md='95'] .field select:focus { box-shadow: var(--sunken); border: none; }
+:root[data-md='95'] .field select { padding-right: 26px; }
+:root[data-md='95'] .field .select-arrow {
+  right: 2px;
+  bottom: 2px;
+  width: 20px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  background: var(--md-w95-face);
+  color: var(--md-on-surface);
+  box-shadow: var(--raised);
+}
+
+/* switch → Win95 check box */
+:root[data-md='95'] .switch { min-height: 26px; gap: 8px; flex-direction: row-reverse; justify-content: flex-end; }
+:root[data-md='95'] .switch .track {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  background: var(--md-w95-window);
+  box-shadow: var(--sunken);
+  display: grid;
+  place-items: center;
+}
+:root[data-md='95'] .switch .thumb { display: none; }
+:root[data-md='95'] .switch.on .track { background: var(--md-w95-window); }
+:root[data-md='95'] .switch.on .track::after { content: '✔'; font-size: 11px; line-height: 1; color: var(--md-on-surface); }
+:root[data-md='95'] .switch .grow { flex: 1; }
+
+/* segmented → row of toggle buttons */
+:root[data-md='95'] .segmented { border: none; gap: 2px; border-radius: 0; }
+:root[data-md='95'] .segmented button {
+  min-height: 26px;
+  padding: 0 10px;
+  font-weight: 400;
+  background: var(--md-w95-face);
+  box-shadow: var(--raised);
+}
+:root[data-md='95'] .segmented button + button { border-left: none; }
+:root[data-md='95'] .segmented button.on {
+  box-shadow: var(--pressed);
+  background-color: var(--md-w95-hilight);
+  background-image: repeating-conic-gradient(var(--md-w95-face) 0 25%, var(--md-w95-light) 0 50%);
+  background-size: 2px 2px;
+  color: var(--md-on-surface);
+}
+:root[data-md='95'] .segmented button.on .material-symbols-outlined { display: none; }
+
+/* chips, statuses, swatches */
+:root[data-md='95'] .chip {
+  height: 24px;
+  border: none;
+  border-radius: 0;
+  background: var(--md-w95-face);
+  box-shadow: var(--raised);
+  font-weight: 400;
+}
+:root[data-md='95'] .chip.static { box-shadow: var(--sunken); background: var(--md-w95-window); }
+:root[data-md='95'] .status {
+  border-radius: 0;
+  height: 20px;
+  background: var(--md-w95-window) !important;
+  color: var(--md-on-surface) !important;
+  box-shadow: var(--sunken);
+}
+:root[data-md='95'] .swatch { border-radius: 0; box-shadow: var(--sunken); border: 2px solid transparent; }
+:root[data-md='95'] .swatch.on { outline: 1px dotted var(--md-on-surface); outline-offset: 1px; }
+
+:root[data-md='95'] .card { background: var(--md-w95-face); box-shadow: var(--raised); border-radius: 0; }
+:root[data-md='95'] .card.outlined { box-shadow: var(--sunken); }
+:root[data-md='95'] .design-card { border: none; border-radius: 0; box-shadow: var(--raised); background: var(--md-w95-face); }
+:root[data-md='95'] .design-card.on { box-shadow: var(--pressed); background: var(--md-w95-hilight); color: var(--md-on-surface); outline: 1px dotted var(--md-on-surface); outline-offset: -6px; }
+:root[data-md='95'] .design-card .mini { border-radius: 0; }
+:root[data-md='95'] .corner-pick button { border: none; border-radius: 0; box-shadow: var(--raised); background: var(--md-w95-face); }
+:root[data-md='95'] .corner-pick button.on { box-shadow: var(--pressed); background: var(--md-w95-hilight); }
+:root[data-md='95'] .corner-pick button span.dot { border-radius: 0; background: var(--md-primary); }
+
+:root[data-md='95'] .list-item,
+:root[data-md='95'] .branch-item,
+:root[data-md='95'] .tl-item { border-radius: 0; }
+:root[data-md='95'] .list-item:hover,
+:root[data-md='95'] .branch-item:hover,
+:root[data-md='95'] .tl-item:hover { background: var(--md-primary); color: var(--md-on-primary); }
+:root[data-md='95'] .branch-item:hover .muted,
+:root[data-md='95'] .tl-item:hover .muted { color: inherit; }
+:root[data-md='95'] .tl-dot { border-radius: 0; }
+:root[data-md='95'] .g-dot { border-radius: 0; }
+:root[data-md='95'] .p-section { border-top: 1px solid var(--md-w95-shadow); box-shadow: inset 0 1px var(--md-w95-light); }
+:root[data-md='95'] .divider { background: var(--md-w95-shadow); box-shadow: 0 1px var(--md-w95-light); }
+:root[data-md='95'] .hero-photo { border-radius: 0; box-shadow: var(--sunken); background: var(--md-w95-window); color: var(--md-on-surface); padding: 2px; }
+:root[data-md='95'] .gallery img { border-radius: 0; box-shadow: var(--sunken); padding: 2px; }
+
+/* ---------- tree canvas ---------- */
+:root[data-md='95'] .viewport { background-image: none; }
+:root[data-md='95'] .pnode {
+  border: none;
+  border-radius: 0;
+  background: var(--md-w95-face);
+  box-shadow: var(--raised);
+  outline-offset: 2px;
+}
+:root[data-md='95'] .pnode:hover { box-shadow: var(--raised); }
+:root[data-md='95'] .pnode.selected { outline: 2px dotted var(--md-w95-light); box-shadow: var(--raised); }
+:root[data-md='95'] .pnode.gender-m,
+:root[data-md='95'] .pnode.gender-f { border-left: 5px solid; }
+:root[data-md='95'] .pnode.gender-m { border-left-color: var(--gender-m); }
+:root[data-md='95'] .pnode.gender-f { border-left-color: var(--gender-f); }
+:root[data-md='95'] .avatar {
+  border-radius: 0;
+  background: var(--md-w95-window);
+  color: var(--md-on-surface);
+  box-shadow: var(--sunken);
+}
+:root[data-md='95'] .avatar img { padding: 2px; }
+:root[data-md='95'] .life-dot { border-radius: 0; border-color: var(--md-w95-face); }
+:root[data-md='95'] .toggle {
+  border: none;
+  border-radius: 0;
+  background: var(--md-w95-face);
+  color: var(--md-on-surface);
+  box-shadow: var(--raised);
+}
+:root[data-md='95'] .toggle.collapsed { background: var(--md-primary); color: var(--md-on-primary); }
+:root[data-md='95'] .branch-dots span { border-radius: 0; border-color: var(--md-w95-face); }
+:root[data-md='95'] .edge { stroke: #000; }
+:root[data-md='95'][data-theme='dark'] .edge { stroke: #c0c0c0; }
+:root[data-md='95'] .edge-label { border-radius: 0; box-shadow: 1px 1px 0 #000; }
+:root[data-md='95'] .zoom-pill,
+:root[data-md='95'] .legend {
+  background: var(--md-w95-face);
+  backdrop-filter: none;
+  border-radius: 0;
+  box-shadow: var(--raised), 2px 2px 0 rgb(0 0 0 / 0.3);
+}
+:root[data-md='95'] .legend-head {
+  margin: -7px -11px 6px;
+  padding: 3px 6px;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+}
+:root[data-md='95'] .legend .bar { border-radius: 0; }
+:root[data-md='95'] .empty > div {
+  background: var(--md-w95-face);
+  box-shadow: var(--raised), 3px 3px 0 rgb(0 0 0 / 0.3);
+  padding: 20px;
+}
+:root[data-md='95'] .empty .big-icon { color: var(--md-on-surface); }
+
+/* printable card keeps the retro look */
+:root[data-md='95'] .print-card { border-top-width: 20px; }
+:root[data-md='95'] .pc-photo { border-radius: 0; box-shadow: var(--sunken); }
+:root[data-md='95'] .pc-body h3 { color: var(--md-on-surface); border-bottom: 1px solid var(--md-w95-shadow); }

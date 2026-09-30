@@ -1,0 +1,141 @@
+/* ============================================================
+   Design tokens, reset, typography and the state layer.
+   Colors are injected by ui/theme.ts as --md-*; shapes, elevation
+   and typography differ between MD3 (default), MD1 and Windows 95.
+   ============================================================ */
+:root {
+  --shape-xs: 4px;
+  --shape-s: 8px;
+  --shape-m: 12px;
+  --shape-l: 16px;
+  --shape-xl: 28px;
+  --shape-full: 999px;
+  --shape-btn: var(--shape-full);
+  --shape-field: 4px;
+  --elev-1: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --elev-2: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --elev-3: 0 4px 8px 3px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.3);
+  --elev-4: 0 6px 10px 4px rgb(0 0 0 / 0.15), 0 2px 3px rgb(0 0 0 / 0.3);
+  --btn-case: none;
+  --btn-spacing: 0.1px;
+  --btn-weight: 500;
+  --appbar-elev: none;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  font-family: 'Roboto', system-ui, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: var(--md-on-surface);
+  background: var(--md-background);
+}
+
+:root[data-md='1'] {
+  --shape-xs: 2px;
+  --shape-s: 2px;
+  --shape-m: 2px;
+  --shape-l: 2px;
+  --shape-xl: 2px;
+  --shape-btn: 2px;
+  --shape-field: 0;
+  --elev-1: 0 2px 2px 0 rgb(0 0 0 / 0.14), 0 3px 1px -2px rgb(0 0 0 / 0.12), 0 1px 5px 0 rgb(0 0 0 / 0.2);
+  --elev-2: 0 4px 5px 0 rgb(0 0 0 / 0.14), 0 1px 10px 0 rgb(0 0 0 / 0.12), 0 2px 4px -1px rgb(0 0 0 / 0.3);
+  --elev-3: 0 8px 17px 2px rgb(0 0 0 / 0.14), 0 3px 14px 2px rgb(0 0 0 / 0.12), 0 5px 5px -3px rgb(0 0 0 / 0.2);
+  --elev-4: 0 16px 24px 2px rgb(0 0 0 / 0.14), 0 6px 30px 5px rgb(0 0 0 / 0.12), 0 8px 10px -7px rgb(0 0 0 / 0.2);
+  --btn-case: uppercase;
+  --btn-spacing: 0.5px;
+  --appbar-elev: var(--elev-2);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+body {
+  background: var(--md-background);
+  color: var(--md-on-surface);
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--md-outline-variant);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-outline);
+}
+
+.material-symbols-outlined {
+  font-size: 24px;
+  line-height: 1;
+  user-select: none;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.icon-fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============ Typography ============ */
+.title-l { font-size: 22px; line-height: 28px; font-weight: 400; }
+.title-m { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: 0.15px; }
+.title-s { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; }
+.headline-s { font-size: 24px; line-height: 32px; font-weight: 400; }
+.body-m { font-size: 14px; line-height: 20px; letter-spacing: 0.25px; }
+.body-s { font-size: 12px; line-height: 16px; letter-spacing: 0.4px; }
+.muted { color: var(--md-on-surface-variant); }
+:root[data-md='1'] .headline-s { font-size: 24px; }
+:root[data-md='1'] .title-l { font-size: 20px; font-weight: 500; }
+
+/* ============ State layer / ripple ============ */
+.state {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.state::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 150ms linear;
+  pointer-events: none;
+  z-index: -1;
+}
+.state:hover::before { opacity: 0.08; }
+.state:focus-visible::before { opacity: 0.12; }
+.state:active::before { opacity: 0.12; }
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.2;
+  transform: scale(0);
+  animation: ripple 550ms var(--ease) forwards;
+  pointer-events: none;
+}
+@keyframes ripple {
+  to { transform: scale(1); opacity: 0; }
+}
+
+
+/* ============ Layout shell ============ */
+.shell { height: 100%; display: flex; flex-direction: column; }
+.main { flex: 1; display: flex; min-height: 0; position: relative; }
+
