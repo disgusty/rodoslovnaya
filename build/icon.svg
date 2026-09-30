@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7E67C1"/>
+      <stop offset="1" stop-color="#4A3589"/>
+    </linearGradient>
+  </defs>
+  <!-- rounded tile -->
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bg)"/>
+  <!-- connections -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M196 150 H316"/>
+    <path d="M256 150 V236"/>
+    <path d="M150 236 H362"/>
+    <path d="M150 236 V300"/>
+    <path d="M362 236 V300"/>
+    <path d="M256 236 V300"/>
+  </g>
+  <!-- people: parents on top, three children below -->
+  <g fill="#FFFFFF">
+    <circle cx="170" cy="150" r="46"/>
+    <circle cx="342" cy="150" r="46"/>
+    <circle cx="150" cy="346" r="42"/>
+    <circle cx="256" cy="346" r="42"/>
+    <circle cx="362" cy="346" r="42"/>
+  </g>
+  <!-- colored branch accent on one child, like the app's highlighted lines -->
+  <circle cx="362" cy="346" r="42" fill="#F2B8B5"/>
+  <circle cx="170" cy="150" r="20" fill="#4A3589" opacity="0.25"/>
+  <circle cx="342" cy="150" r="20" fill="#4A3589" opacity="0.25"/>
+</svg>

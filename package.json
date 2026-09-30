@@ -1,0 +1,123 @@
+{
+  "name": "rodoslovnaya",
+  "productName": "Родословная",
+  "version": "1.0.0",
+  "description": "Приложение для создания генеалогического древа",
+  "main": "electron/main.cjs",
+  "author": "disgusty",
+  "homepage": "https://github.com/disgusty/rodoslovnaya",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/disgusty/rodoslovnaya.git"
+  },
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
+    "start": "vite build && electron .",
+    "test:gedcom": "node scripts/test-gedcom.mjs",
+    "dist": "vite build && electron-builder --win",
+    "android:assets": "electron scripts/make-android-assets.cjs",
+    "android:sync": "tsc --noEmit && vite build --mode android && cap sync android",
+    "apk": "npm run android:sync && cd android && .\\gradlew.bat assembleRelease"
+  },
+  "build": {
+    "appId": "com.familytree.app",
+    "productName": "Родословная",
+    "executableName": "Rodoslovnaya",
+    "copyright": "© 2026 disgusty",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "build/icon.png",
+      "package.json"
+    ],
+    "electronLanguages": [
+      "ru",
+      "en-US"
+    ],
+    "fileAssociations": [
+      {
+        "ext": "ged",
+        "name": "Rodoslovnaya.GEDCOM",
+        "description": "Родословная (GEDCOM)",
+        "role": "Editor"
+      },
+      {
+        "ext": "ftree",
+        "name": "Rodoslovnaya.Project",
+        "description": "Проект «Родословной»",
+        "role": "Editor"
+      }
+    ],
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Родословная",
+      "installerLanguages": [
+        "ru_RU",
+        "en_US"
+      ],
+      "language": "1049",
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "Rodoslovnaya-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Rodoslovnaya-Portable-${version}.${ext}"
+    }
+  },
+  "//": "Everything is bundled into dist/ by Vite, so there are no runtime dependencies to ship.",
+  "devDependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/filesystem": "^8.1.3",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@fontsource/roboto": "^5.3.0",
+    "@material/material-color-utilities": "^0.4.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "cross-env": "^10.1.0",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "html-to-image": "^1.11.13",
+    "jspdf": "^4.2.1",
+    "jszip": "^3.10.2",
+    "material-symbols": "^0.47.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "wait-on": "^9.1.0",
+    "zustand": "^5.0.15"
+  }
+}
